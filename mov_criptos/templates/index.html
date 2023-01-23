@@ -1,5 +1,39 @@
 {% extends "base.html"%}
 {%block section%}
-
-<h3>Aquí iran los movimientos</h3>
+<nav>
+    <ul>
+        <li>Inicio</li>|
+        <li><a href="/purchase">Compra</a></li>|
+        <li><a href="/status">Estado</a></li>
+      </ul>
+</nav>
+<h3>Lista de movimientos</h3>
+{% if data %}
+        <table role="grid">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Moneda_from</th>
+                    <th>Cantidad_from</th>
+                    <th>Moneda_to</th>
+                    <th>Cantidad_to</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for registros in data %}
+                <tr>
+                    <td>{{registros.date}}</td>
+                    <td>{{registros.time}}</td>
+                    <td>{{registros.Moneda_from}}</td>
+                    <td>{{registros.Cantidad_from}}</td>
+                    <td>{{registros.Moneda_to}}</td>
+                    <td>{{registros.Cantidad_to}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% else %}
+<h3>No existen movimientos...</h3>
+{% endif %}
 {%endblock%}

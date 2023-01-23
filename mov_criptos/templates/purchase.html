@@ -1,35 +1,38 @@
 {% extends "base.html"%}
 {%block section%}
-
+<nav>
+    <ul>
+        <li><a href="/">Inicio</a></li>|
+        <li>Compra</li>|
+        <li><a href="/status">Estado</a></li>
+      </ul>
+</nav>
 <h3>Aquí se podrá comprar, intercambiar o vender</h3>
-<div class="grid">
-    <details role="list">
-        <summary aria-haspopup="listbox">From</summary>
-            <ul role="listbox">
-                <li><a>EUR</a></li>
-                <li><a>BTC</a></li>
-                <li><a>ETH</a></li>
-                <li><a>USDT</a></li>
-                <li><a>BNB</a></li>
-                <li><a>XRP</a></li>
-                <li><a>ADA</a></li>
-                <li><a>DOT</a></li>
-                <li><a>MATIC</a></li>
-            </ul>
-    </details>
-    <details role="list">
-        <summary aria-haspopup="listbox">To</summary>
-            <ul role="listbox">
-                <li><a>EUR</a></li>
-                <li><a>BTC</a></li>
-                <li><a>ETH</a></li>
-                <li><a>USDT</a></li>
-                <li><a>BNB</a></li>
-                <li><a>XRP</a></li>
-                <li><a>ADA</a></li>
-                <li><a>DOT</a></li>
-                <li><a>MATIC</a></li>
-            </ul>
-    </details>
-</div>
+
+<form action="/new" method="post">
+    {{ dataForm.csrf_token }}
+    
+    {{ dataForm.moneda_from.label }}
+    {{ dataForm.moneda_from(placeholder="XXX") }}
+    
+    {{ dataForm.moneda_to.label }}
+    {{ dataForm.moneda_to(placeholder="XXX") }}
+    
+    {{ dataForm.moneda_from(placeholder="XXX") }}
+    
+    {{ dataForm.cantidad_from.label }}
+    {{ dataForm.cantidad_from(placeholder="Ingrese cantidad") }}
+
+    {{ dataForm.cantidad_to.label }}
+    {{ dataForm.cantidad_to(placeholder="Cambio por calcular") }}
+
+    {{ dataForm.calcular }}
+
+    {{ dataForm.p_u.label }}
+    {{ dataForm.p_u(placeholder="P.U. por calcular") }}
+
+    {{ dataForm.submit }}
+    
+</form>
+
 {%endblock%}

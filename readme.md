@@ -15,10 +15,12 @@ FLASK_DEBUG=true
 ```
 ### Renombrar el archivo config_template.py a config.py y agregar:
 ```
-ORIGIN_DATA="data/movimientos.sqlite"
+ORIGIN_DATA="data/registros.sqlite"
 SECRET_KEY="AGREGA TU CODIGO ENCRIPTADO"
 API_KEY="AGREGA TU API KEY UNICA"
 ```
+La ApiKey se obtiene en [www.coinapi.io](https://www.coinapi.io)
+
 ### Ejecución con .env:
 ```
 flask run
