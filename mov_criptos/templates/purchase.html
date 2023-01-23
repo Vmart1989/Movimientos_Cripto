@@ -7,21 +7,22 @@
         <li><a href="/status">Estado</a></li>
       </ul>
 </nav>
-<h3>Aquí se podrá comprar, intercambiar o vender</h3>
+<h3>Compra, venta o intercambio de criptomonedas</h3>
 
+<div class="grid">
 <form action="/new" method="post">
     {{ dataForm.csrf_token }}
-    
     {{ dataForm.moneda_from.label }}
-    {{ dataForm.moneda_from(placeholder="XXX") }}
-    
-    {{ dataForm.moneda_to.label }}
-    {{ dataForm.moneda_to(placeholder="XXX") }}
-    
-    {{ dataForm.moneda_from(placeholder="XXX") }}
-    
+    {{ dataForm.moneda_from}}
+
     {{ dataForm.cantidad_from.label }}
     {{ dataForm.cantidad_from(placeholder="Ingrese cantidad") }}
+    
+    {{ dataForm.moneda_to.label }}
+    {{ dataForm.moneda_to }}
+    
+    
+   
 
     {{ dataForm.cantidad_to.label }}
     {{ dataForm.cantidad_to(placeholder="Cambio por calcular") }}
@@ -31,8 +32,11 @@
     {{ dataForm.p_u.label }}
     {{ dataForm.p_u(placeholder="P.U. por calcular") }}
 
+    
     {{ dataForm.submit }}
     
+    
 </form>
+</div>
 
 {%endblock%}
