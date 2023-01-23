@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/pico.css">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <title>Crypto Dance: {{pageTitle}}</title>
+</head>
+<body class="container-fluid">
+<article>
+    <header>
+        <div class="headings">
+            <h1>CryptoDance App&reg;</h1>
+            <cite>Registro de inversiones y compra/venta de criptomonedas</cite>
+          </div>
+          <nav>
+            <ul>
+                <li><a href="/">Inicio</a></li>|
+                <li><a href="/purchase">Compra</a></li>|
+                <li><a href="/status">Estado</a></li>
+              </ul>
+        </nav> 
+    </header>
+
+    <section>
+    {% block section %}
+    {% endblock %}
+
+    </section>
+    
+</body>
+
+<footer>
+    <div class="container-fluid">
+        &copy;2023 VMS - Todos los derechos reservados
+    </div>
+</footer>
+</article>
+</html>
