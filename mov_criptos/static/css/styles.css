@@ -3,6 +3,26 @@
     color: var(--primary-inverse);
 }*/
 
-.red {
-    background-color: red;
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
 }
+
+.inline-block {
+    display: inline-block;
+    
+}
+
+.calculadora {
+    display: inline-block;
+   
+
+}
+
+nav {
+    margin-top: -2em;
+}
+

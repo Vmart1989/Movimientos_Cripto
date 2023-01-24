@@ -7,36 +7,45 @@
         <li><a href="/status">Estado</a></li>
       </ul>
 </nav>
-<h3>Compra, venta o intercambio de criptomonedas</h3>
+<h3>Compra/venta de criptomonedas</h3>
 
-<div class="grid">
+
 <form action="/new" method="post">
     {{ dataForm.csrf_token }}
-    {{ dataForm.moneda_from.label }}
-    {{ dataForm.moneda_from}}
-
-    {{ dataForm.cantidad_from.label }}
+    <div class="inline-block">
+    <select>
+        <option value="" disabled selected>{{ dataForm.moneda_from.label }}</option>
+        <!--<option>{{ dataForm.moneda_from}}</option>
+        <option>{{ dataForm.moneda_from}}</option>
+         EUR BTC ETH USDT BNB XRP ADA SOL DOT MATIC-->
+      </select>
+    </div>
+      <div class="inline-block">
     {{ dataForm.cantidad_from(placeholder="Ingrese cantidad") }}
-    
-    {{ dataForm.moneda_to.label }}
-    {{ dataForm.moneda_to }}
-    
-    
-   
-
+    </div>
+    <div class="inline-block">
+    <select>
+        <option value="" disabled selected>{{ dataForm.moneda_to.label }}</option>
+        <!--<option>{{ dataForm.moneda_to }}</option>
+        <option>{{ dataForm.moneda_to}}</option>
+         EUR BTC ETH USDT BNB XRP ADA SOL DOT MATIC-->
+      </select>
+    </div>
+    <div class="calculadora">
+    <a href="#">
+        <button class="material-symbols-outlined" style="padding: 0.1em; font-size: 2.6em;">
+            calculate 
+        </button>
+    </a>
+</div>
     {{ dataForm.cantidad_to.label }}
     {{ dataForm.cantidad_to(placeholder="Cambio por calcular") }}
-
-    {{ dataForm.calcular }}
-
+    
     {{ dataForm.p_u.label }}
     {{ dataForm.p_u(placeholder="P.U. por calcular") }}
 
-    
     {{ dataForm.submit }}
     
-    
 </form>
-</div>
 
 {%endblock%}

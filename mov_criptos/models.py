@@ -3,7 +3,7 @@ from config import *
 from mov_criptos.connection import Connection
 
 def show_all():
-    connect = Connection("select id,date,time,moneda_from,cantidad_from,moneda_to,cantidad_to from registros order by date DESC")
+    connect = Connection("select id,date,time,moneda_from,cantidad_from,moneda_to,cantidad_to,precio_unitario from registros order by date DESC")
     filas = connect.res.fetchall()
     columnas= connect.res.description
 

@@ -18,22 +18,24 @@
                     <th>Cantidad_from</th>
                     <th>Moneda_to</th>
                     <th>Cantidad_to</th>
+                    <th>Precio Unitario</th>
                 </tr>
             </thead>
             <tbody>
                 {% for registros in data %}
                 <tr>
-                    <td>{{registros.date}}</td>
-                    <td>{{registros.time}}</td>
-                    <td>{{registros.Moneda_from}}</td>
-                    <td>{{registros.Cantidad_from}}</td>
-                    <td>{{registros.Moneda_to}}</td>
-                    <td>{{registros.Cantidad_to}}</td>
+                    <td>{{registros.Date}}</td>
+                    <td>{{registros.Time}}</td>
+                    <td>{{registros.moneda_from}}</td>
+                    <td>{{registros.cantidad_from}}</td>
+                    <td>{{registros.moneda_to}}</td>
+                    <td>{{registros.cantidad_to}}</td>
+                    <td>{{registros.Precio_Unitario}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
 {% else %}
-<h3>No existen movimientos...</h3>
+<p>No existen movimientos...</p>
 {% endif %}
 {%endblock%}
