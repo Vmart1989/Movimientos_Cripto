@@ -8,13 +8,18 @@ from mov_criptos.forms import RegistrosForm
 def index():
     registros = show_all()
 
-    return render_template('index.html', pageTitle = 'Movimientos', data=registros)
+    return render_template('index.html', pageTitle = 'Movimientos', data=registros )
 
 @app.route("/purchase",methods=["GET","POST"])
 def purchase():
     form = RegistrosForm()
     if request.method == "GET":
-        return render_template("purchase.html", pageTitle = "Transacción", dataForm = form)
+        return render_template("purchase.html", pageTitle = "Transacción", dataForm = form, 
+        EUR=getEUR(), BTC=getBTC(), ETH=getETH(), USDT=getUSDT(), BNB=getBNB(), XRP=getXRP(),
+        ADA=getADA(), SOL=getSOL(), DOT=getDOT(), MATIC=getMATIC())
+    else: #POST
+        return render_template("purchase.html",pageTitle = "Transacción", dataForm = form, rate = getRate(), EUR=getEUR(), BTC=getBTC(), ETH=getETH(), USDT=getUSDT(), BNB=getBNB(), XRP=getXRP(),
+        ADA=getADA(), SOL=getSOL(), DOT=getDOT(), MATIC=getMATIC())
 
 @app.route("/status")
 def status():

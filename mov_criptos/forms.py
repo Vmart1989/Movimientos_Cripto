@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, DateField, FloatField, SubmitField, TimeField, SelectMultipleField
 from wtforms.validators import DataRequired, Length, ValidationError
+from mov_criptos.models import *
 
 class RegistrosForm(FlaskForm):
    date = DateField('Fecha')

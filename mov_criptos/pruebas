@@ -1,0 +1,28 @@
+import requests
+
+class ModelError(Exception):
+    pass
+
+class MyCoinsApiIO:
+
+    def getCoins(self, apiKey):
+        r = requests.get(f'https://rest.coinapi.io/v1/assets/?apikey=C4F1F26C-01A8-467A-8AB2-EAFFAAF5D601')
+        if r.status_code != 200:
+            raise ModelError("Error en consulta de assets:{}".format(r.status_code))
+
+        lista_general = r.json()
+        coins = []
+        for item in lista_general:
+            if item["asset_id"] == "EUR" or \
+            item["asset_id"] == "BTC" or \
+            item["asset_id"] == "ETH" or \
+            item["asset_id"] == "USDT" or \
+            item["asset_id"] == "BNB" or \
+            item["asset_id"] == "XRP" or \
+            item["asset_id"] == "ADA" or \
+            item["asset_id"] == "SOL" or \
+            item["asset_id"] == "DOT" or \
+            item["asset_id"] == "MATIC":
+                coins = item['asset_id']
+                print(coins)
+        return coins

@@ -3,21 +3,29 @@
     color: var(--primary-inverse);
 }*/
 
+.columna{
+    color: var(--primary);
+}
+
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
   'GRAD' 0,
-  'opsz' 48
+  'opsz' 48;
+  
+  
 }
 
-.inline-block {
+.bloque_venta {
     display: inline-block;
+    width: 33%;
     
 }
 
 .calculadora {
     display: inline-block;
+    
    
 
 }

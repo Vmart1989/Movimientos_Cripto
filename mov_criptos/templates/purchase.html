@@ -10,39 +10,55 @@
 <h3>Compra/venta de criptomonedas</h3>
 
 
-<form action="/new" method="post">
+<form action="/new" method="POST">
     {{ dataForm.csrf_token }}
-    <div class="inline-block">
+    <div class="bloque_venta">
     <select>
         <option value="" disabled selected>{{ dataForm.moneda_from.label }}</option>
-        <!--<option>{{ dataForm.moneda_from}}</option>
-        <option>{{ dataForm.moneda_from}}</option>
-         EUR BTC ETH USDT BNB XRP ADA SOL DOT MATIC-->
+        <option>{{EUR}}</option>
+        <option>{{BTC}}</option>
+        <option>{{ETH}}</option>
+        <option>{{USDT}}</option>
+        <option>{{BNB}}</option>
+        <option>{{XRP}}</option>
+        <option>{{ADA}}</option>
+        <option>{{SOL}}</option>
+        <option>{{DOT}}</option>
+        <option>{{MATIC}}</option>
       </select>
     </div>
-      <div class="inline-block">
+      <div class="bloque_venta">
     {{ dataForm.cantidad_from(placeholder="Ingrese cantidad") }}
     </div>
-    <div class="inline-block">
+    <div class="bloque_venta">
     <select>
         <option value="" disabled selected>{{ dataForm.moneda_to.label }}</option>
-        <!--<option>{{ dataForm.moneda_to }}</option>
-        <option>{{ dataForm.moneda_to}}</option>
-         EUR BTC ETH USDT BNB XRP ADA SOL DOT MATIC-->
+        <option>{{EUR}}</option>
+        <option>{{BTC}}</option>
+        <option>{{ETH}}</option>
+        <option>{{USDT}}</option>
+        <option>{{BNB}}</option>
+        <option>{{XRP}}</option>
+        <option>{{ADA}}</option>
+        <option>{{SOL}}</option>
+        <option>{{DOT}}</option>
+        <option>{{MATIC}}</option>
       </select>
     </div>
-    <div class="calculadora">
+    
     <a href="#">
-        <button class="material-symbols-outlined" style="padding: 0.1em; font-size: 2.6em;">
+        <button>
+        Calcular <span class="material-symbols-outlined" style="">
             calculate 
+        </span>
         </button>
     </a>
-</div>
     {{ dataForm.cantidad_to.label }}
     {{ dataForm.cantidad_to(placeholder="Cambio por calcular") }}
     
     {{ dataForm.p_u.label }}
-    {{ dataForm.p_u(placeholder="P.U. por calcular") }}
+
+    {{ dataForm.p_u(placeholder={{rate}})}}
 
     {{ dataForm.submit }}
     
