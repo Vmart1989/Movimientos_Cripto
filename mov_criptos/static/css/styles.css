@@ -34,3 +34,9 @@ nav {
     margin-top: -2em;
 }
 
+article {padding:1em;
+margin: 0.5em}
+
+.purple {
+    color: var(--primary);
+}

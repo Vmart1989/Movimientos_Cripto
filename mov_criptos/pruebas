@@ -4,6 +4,9 @@ class ModelError(Exception):
     pass
 
 class MyCoinsApiIO:
+    def __init__(self):
+        self.euro = euro
+        pass
 
     def getCoins(self, apiKey):
         r = requests.get(f'https://rest.coinapi.io/v1/assets/?apikey=C4F1F26C-01A8-467A-8AB2-EAFFAAF5D601')

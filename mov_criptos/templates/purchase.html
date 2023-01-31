@@ -10,58 +10,45 @@
 <h3>Compra/venta de criptomonedas</h3>
 
 
-<form action="/new" method="POST">
+<form action="/purchase" method="POST">
     {{ dataForm.csrf_token }}
     <div class="bloque_venta">
-    <select>
-        <option value="" disabled selected>{{ dataForm.moneda_from.label }}</option>
-        <option>{{EUR}}</option>
-        <option>{{BTC}}</option>
-        <option>{{ETH}}</option>
-        <option>{{USDT}}</option>
-        <option>{{BNB}}</option>
-        <option>{{XRP}}</option>
-        <option>{{ADA}}</option>
-        <option>{{SOL}}</option>
-        <option>{{DOT}}</option>
-        <option>{{MATIC}}</option>
-      </select>
+    {{ dataForm.moneda_from.label }}
+    {{ dataForm.moneda_from }}    
     </div>
-      <div class="bloque_venta">
-    {{ dataForm.cantidad_from(placeholder="Ingrese cantidad") }}
+   
+    <div class="bloque_venta">
+    {{ dataForm.moneda_to.label }}
+    {{ dataForm.moneda_to }}   
     </div>
     <div class="bloque_venta">
-    <select>
-        <option value="" disabled selected>{{ dataForm.moneda_to.label }}</option>
-        <option>{{EUR}}</option>
-        <option>{{BTC}}</option>
-        <option>{{ETH}}</option>
-        <option>{{USDT}}</option>
-        <option>{{BNB}}</option>
-        <option>{{XRP}}</option>
-        <option>{{ADA}}</option>
-        <option>{{SOL}}</option>
-        <option>{{DOT}}</option>
-        <option>{{MATIC}}</option>
-      </select>
-    </div>
-    
-    <a href="#">
-        <button>
-        Calcular <span class="material-symbols-outlined" style="">
-            calculate 
-        </span>
-        </button>
-    </a>
-    {{ dataForm.cantidad_to.label }}
-    {{ dataForm.cantidad_to(placeholder="Cambio por calcular") }}
-    
-    {{ dataForm.p_u.label }}
+      {{ dataForm.cantidad_from.label }}
+      {{ dataForm.cantidad_from(placeholder="Ingrese cantidad") }}
+      </div>
 
-    {{ dataForm.p_u(placeholder={{rate}})}}
-
+      {{dataForm.calcular}}
+    
+      {% if dataForm.calcular.data %}
+      {% block content %}
+      <article>
+      <hgroup>
+      <h5>Cambio:</h5> 
+      <h6>1 <span class="purple">{{moneda_from}}</span> vale {{ rate }} <span class="purple">{{moneda_to}}</span></h6>
+      </hgroup>
+      <hgroup>
+      <h5>Cantidad:</h5> 
+      <h6><span class="purple">{{moneda_to}}</span> a recibir por {{cantidad}} <span class="purple">{{moneda_from}}</span>: {{ cantidad_to }}</h6>
+      </hgroup>
+      <hgroup>
+    <h5>Precio Unitario:</h5>
+    <h6>1 <span class="purple">{{moneda_to}}</span> vale {{ precio_unitario }} <span class="purple">{{moneda_from}}</span></h6>
+    </hgroup>
+      </article>
+      {% endblock content %}
+      {% endif %}
     {{ dataForm.submit }}
     
 </form>
+
 
 {%endblock%}

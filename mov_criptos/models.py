@@ -25,107 +25,29 @@ def show_all():
 
     return resultado
 
-def getEUR():
-    r = requests.get(f'https://rest.coinapi.io/v1/assets/?apikey={API_KEY}')
-    euro = ""
-    lista_general = r.json()
-    for item in lista_general:
-        if item["asset_id"] == "EUR":
-            euro = item["asset_id"]
-    return euro
+class ModelError(Exception):
+    pass
 
-def getBTC():
-    r = requests.get(f'https://rest.coinapi.io/v1/assets/?apikey={API_KEY}')
-    btc = ""
-    lista_general = r.json()
-    for item in lista_general:
-        if item["asset_id"] == "BTC":
-            btc = item["asset_id"]
-    return btc
+class CryptoExchange:
+    def __init__(self, moneda_from, moneda_to):
+        self.moneda_from = moneda_from
+        self.moneda_to = moneda_to
+        self.rate = 0
 
-def getETH():
-    r = requests.get(f'https://rest.coinapi.io/v1/assets/?apikey={API_KEY}')
-    eth = ""
-    lista_general = r.json()
-    for item in lista_general:
-        if item["asset_id"] == "ETH":
-            eth = item["asset_id"]
-    return eth
+    def getRate(self):
+        r = requests.get(f'https://rest.coinapi.io/v1/exchangerate/{self.moneda_from}/{self.moneda_to}?apikey={API_KEY}')
+        resultado = r.json()
+        if r.status_code == 200:
+            self.rate = resultado['rate']
+            
+            return self.rate
 
-def getUSDT():
-    r = requests.get(f'https://rest.coinapi.io/v1/assets/?apikey={API_KEY}')
-    usdt = ""
-    lista_general = r.json()
-    for item in lista_general:
-        if item["asset_id"] == "USDT":
-            usdt = item["asset_id"]
-    return usdt
+        else:
+            raise ModelError(f"status: {self.r.status_code} error: {self.resultado['error']}")
 
-def getBNB():
-    r = requests.get(f'https://rest.coinapi.io/v1/assets/?apikey={API_KEY}')
-    bnb = ""
-    lista_general = r.json()
-    for item in lista_general:
-        if item["asset_id"] == "BNB":
-            bnb = item["asset_id"]
-    return bnb
 
-def getXRP():
-    r = requests.get(f'https://rest.coinapi.io/v1/assets/?apikey={API_KEY}')
-    xrp = ""
-    lista_general = r.json()
-    for item in lista_general:
-        if item["asset_id"] == "XRP":
-            xrp = item["asset_id"]
-    return xrp
 
-def getADA():
-    r = requests.get(f'https://rest.coinapi.io/v1/assets/?apikey={API_KEY}')
-    ada = ""
-    lista_general = r.json()
-    for item in lista_general:
-        if item["asset_id"] == "ADA":
-            ada = item["asset_id"]
-    return ada
-
-def getSOL():
-    r = requests.get(f'https://rest.coinapi.io/v1/assets/?apikey={API_KEY}')
-    sol = ""
-    lista_general = r.json()
-    for item in lista_general:
-        if item["asset_id"] == "SOL":
-            sol = item["asset_id"]
-    return sol
-
-def getDOT():
-    r = requests.get(f'https://rest.coinapi.io/v1/assets/?apikey={API_KEY}')
-    dot = ""
-    lista_general = r.json()
-    for item in lista_general:
-        if item["asset_id"] == "DOT":
-            dot = item["asset_id"]
-    return dot
-
-def getMATIC():
-    r = requests.get(f'https://rest.coinapi.io/v1/assets/?apikey={API_KEY}')
-    matic = ""
-    lista_general = r.json()
-    for item in lista_general:
-        if item["asset_id"] == "MATIC":
-            matic = item["asset_id"]
-    return matic
-
-def getRate(API_KEY):
-    moneda_from = RegistrosForm(moneda_from)
-    moneda_to = RegistrosForm(moneda_to)
-    r = requests.get(f'https://rest.coinapi.io/v1/exchangerate/{moneda_from}/{moneda_to}?apikey={API_KEY}')
-    resultado = r.json()
-    if r.status_code == 200:
-        rate = resultado['rate']
-        
-    return rate
-
-##COINAPI##
+##FROM COINAPI KATA##
 '''
 
 class ModelError(Exception):
@@ -133,7 +55,7 @@ class ModelError(Exception):
 
 class MyCoinsApiIO:
 
-    def getCoins(self, apiKey):
+    def getEUR(self, apiKey):
         r = requests.get(f'https://rest.coinapi.io/v1/assets/?apikey={apiKey}')
         if r.status_code != 200:
             raise ModelError("Error en consulta de assets:{}".format(r.status_code))
