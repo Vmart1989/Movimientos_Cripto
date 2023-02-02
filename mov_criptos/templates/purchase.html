@@ -10,7 +10,7 @@
 <h3>Compra/venta de criptomonedas</h3>
 
 
-<form action="/purchase" method="POST">
+<form action="/purchase" method="POST" >
     {{ dataForm.csrf_token }}
     <div class="bloque_venta">
     {{ dataForm.moneda_from.label }}
@@ -21,32 +21,39 @@
     {{ dataForm.moneda_to.label }}
     {{ dataForm.moneda_to }}   
     </div>
+
+    
     <div class="bloque_venta">
       {{ dataForm.cantidad_from.label }}
       {{ dataForm.cantidad_from(placeholder="Ingrese cantidad") }}
       </div>
 
+  
+
       {{dataForm.calcular}}
-    
+      
       {% if dataForm.calcular.data %}
+     
       {% block content %}
+
       <article>
       <hgroup>
       <h5>Cambio:</h5> 
-      <h6>1 <span class="purple">{{moneda_from}}</span> vale {{ rate }} <span class="purple">{{moneda_to}}</span></h6>
+      <h6><span class="purple">1 {{moneda_from}}</span> vale <span class="purple">{{ rate }} {{moneda_to}}</span></h6>
       </hgroup>
       <hgroup>
       <h5>Cantidad:</h5> 
-      <h6><span class="purple">{{moneda_to}}</span> a recibir por {{cantidad}} <span class="purple">{{moneda_from}}</span>: {{ cantidad_to }}</h6>
+      <h6>Recibirás <span class="purple">{{ cantidad_to }} {{moneda_to}}</span> a cambio de <span class="purple">{{cantidad}} {{moneda_from}}</span> </h6>
       </hgroup>
       <hgroup>
     <h5>Precio Unitario:</h5>
-    <h6>1 <span class="purple">{{moneda_to}}</span> vale {{ precio_unitario }} <span class="purple">{{moneda_from}}</span></h6>
+    <h6><span class="purple">1 {{moneda_to}}</span> vale <span class="purple">{{ precio_unitario }} {{moneda_from}}</span></h6>
     </hgroup>
       </article>
+      {{ dataForm.submit }}
       {% endblock content %}
       {% endif %}
-    {{ dataForm.submit }}
+      
     
 </form>
 

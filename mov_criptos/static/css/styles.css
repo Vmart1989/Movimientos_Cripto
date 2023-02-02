@@ -40,3 +40,7 @@ margin: 0.5em}
 .purple {
     color: var(--primary);
 }
+
+.form__error {
+    color: red;
+}

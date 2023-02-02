@@ -2,7 +2,10 @@ from datetime import date, datetime
 from mov_criptos import app
 from flask import render_template, request, redirect, url_for, flash
 from mov_criptos.models import *
-from mov_criptos.forms import RegistrosForm
+from mov_criptos.forms import RegistrosForm, COINS, ValidationError
+
+
+
 
 @app.route("/")
 def index():
@@ -12,10 +15,12 @@ def index():
 
 @app.route("/purchase",methods=["GET","POST",])
 def purchase():
-    #global calcular_on
+    #global calcular_on 
 
     if request.method == "GET":
         form = RegistrosForm()
+        form.moneda_to.default = 'BTC'
+        form.process()
         #calcular_on = False
         return render_template("purchase.html", pageTitle = "Transacción", dataForm = form)
     else: #POST
@@ -35,7 +40,10 @@ def purchase():
 
         if form.calcular.data:
             #calcular_on = True
-            return render_template("purchase.html",pageTitle = "Transacción en marcha", dataForm = form, rate=rate_formatted, cantidad_to=cantidad_to_formatted, precio_unitario = p_u_formatted, moneda_to=moneda_to, moneda_from=moneda_from, cantidad=cantidad)
+            if moneda_from != moneda_to:
+                return render_template("purchase.html",pageTitle = "Cálculo de movimiento", dataForm = form, rate=rate_formatted, cantidad_to=cantidad_to_formatted, precio_unitario = p_u_formatted, moneda_to=moneda_to, moneda_from=moneda_from, cantidad=cantidad)
+            else:
+                raise ValidationError('Escoja monedas diferentes')
 
         if form.submit.data:
             pass
