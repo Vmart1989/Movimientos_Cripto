@@ -30,12 +30,18 @@
 
   
 
-      {{dataForm.calcular}}
+    {{dataForm.calcular}}
+    {% if msgError %}
+      {% for item in msgError %}
+      <article>    
+      <p class="error">{{item}}</p>
+      </article> 
+      {% endfor %}
+    {% endif %}  
+    
+      {% block content %} 
+      {% if not msgError and dataForm.calcular.data %}
       
-      {% if dataForm.calcular.data %}
-     
-      {% block content %}
-
       <article>
       <hgroup>
       <h5>Cambio:</h5> 
@@ -46,16 +52,17 @@
       <h6>Recibirás <span class="purple">{{ cantidad_to }} {{moneda_to}}</span> a cambio de <span class="purple">{{cantidad}} {{moneda_from}}</span> </h6>
       </hgroup>
       <hgroup>
-    <h5>Precio Unitario:</h5>
-    <h6><span class="purple">1 {{moneda_to}}</span> vale <span class="purple">{{ precio_unitario }} {{moneda_from}}</span></h6>
-    </hgroup>
+      <h5>Precio Unitario:</h5>
+      <h6><span class="purple">1 {{moneda_to}}</span> vale <span class="purple">{{ precio_unitario }} {{moneda_from}}</span></h6>
+      </hgroup>
       </article>
       {{ dataForm.submit }}
-      {% endblock content %}
       {% endif %}
       
+    {% endblock content %}
+    
+
     
 </form>
-
 
 {%endblock%}

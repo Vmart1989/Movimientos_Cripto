@@ -19,11 +19,15 @@ def purchase():
 
     if request.method == "GET":
         form = RegistrosForm()
+        form.moneda_from.default = 'EUR'
         form.moneda_to.default = 'BTC'
         form.process()
+            
+
         #calcular_on = False
         return render_template("purchase.html", pageTitle = "Transacción", dataForm = form)
     else: #POST
+
         form = RegistrosForm(data=request.form)
         moneda_from = form.moneda_from.data
         moneda_to = form.moneda_to.data
@@ -37,13 +41,20 @@ def purchase():
         cantidad_to_formatted = f'{cantidad_to:.6f}'
         rate_formatted = f'{rate:.6f}'
         p_u_formatted = f'{precio_unitario:.6f}'
+        
+        def validateForm(RegistrosForm):
+            errores = []
+            if moneda_from == moneda_to:
+                errores.append("Escoja monedas diferentes")
+            return errores
+        
+        error = validateForm(request.form)
+        if error:
+            return render_template("purchase.html", pageTitle = "Transacción", dataForm = form, msgError=error)
 
-        if form.calcular.data:
+        if form.validate_on_submit():
             #calcular_on = True
-            if moneda_from != moneda_to:
                 return render_template("purchase.html",pageTitle = "Cálculo de movimiento", dataForm = form, rate=rate_formatted, cantidad_to=cantidad_to_formatted, precio_unitario = p_u_formatted, moneda_to=moneda_to, moneda_from=moneda_from, cantidad=cantidad)
-            else:
-                raise ValidationError('Escoja monedas diferentes')
 
         if form.submit.data:
             pass
@@ -51,3 +62,4 @@ def purchase():
 @app.route("/status")
 def status():
     return render_template("status.html", pageTitle = "Estado")
+
