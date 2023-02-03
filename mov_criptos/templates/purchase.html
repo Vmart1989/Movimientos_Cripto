@@ -26,7 +26,7 @@
     
     <div class="bloque_venta">
       {{ dataForm.cantidad_from.label }}
-      {{ dataForm.cantidad_from(placeholder="Ingrese cantidad") }}
+      {{ dataForm.cantidad_from(type="number", min="0.01", step="0.01", placeholder="Ingrese cantidad" ) }}
       </div>
     <div class="bloque_venta">  
     {{dataForm.calcular}}

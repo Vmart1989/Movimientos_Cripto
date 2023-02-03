@@ -26,8 +26,6 @@ def purchase():
     else: #POST
 
         form = RegistrosForm(data=request.form)
-        #date = form.date
-        #time = form.time
         moneda_from = form.moneda_from.data
         moneda_to = form.moneda_to.data
         cantidad = form.cantidad_from.data
@@ -43,8 +41,6 @@ def purchase():
         
         def validateForm(form):
             errores = []
-            if cantidad == 0:
-                errores.append("Introduzca una cantidad positiva")
             if moneda_from == moneda_to:
                 errores.append("Escoja monedas diferentes")
             
@@ -63,7 +59,7 @@ def purchase():
             hora = now.strftime("%H:%M:%S")
             save([fecha,hora, moneda_from, cantidad, moneda_to, cantidad_to_formatted, p_u_formatted])
 
-            flash('Movimiento registrado con éxito')
+            flash('¡Movimiento registrado con éxito!')
 
             return redirect(url_for('index'))
             
