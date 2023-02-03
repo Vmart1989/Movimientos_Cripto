@@ -6,7 +6,7 @@ from mov_criptos.forms import RegistrosForm
 
 
 def show_all():
-    connect = Connection("SELECT id,date,time,moneda_from,cantidad_from,moneda_to,cantidad_to,precio_unitario from registros order by date DESC")
+    connect = Connection("SELECT id,date,time,moneda_from,cantidad_from,moneda_to,cantidad_to,precio_unitario from registros order by date,time DESC")
     filas = connect.res.fetchall()
     columnas= connect.res.description
 

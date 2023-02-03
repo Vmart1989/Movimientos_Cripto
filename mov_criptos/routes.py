@@ -41,10 +41,13 @@ def purchase():
         rate_formatted = f'{rate:.6f}'
         p_u_formatted = f'{precio_unitario:.6f}'
         
-        def validateForm(RegistrosForm):
+        def validateForm(form):
             errores = []
+            if cantidad == 0:
+                errores.append("Introduzca una cantidad positiva")
             if moneda_from == moneda_to:
                 errores.append("Escoja monedas diferentes")
+            
             return errores
         
         error = validateForm(request.form)
@@ -60,9 +63,11 @@ def purchase():
             hora = now.strftime("%H:%M:%S")
             save([fecha,hora, moneda_from, cantidad, moneda_to, cantidad_to_formatted, p_u_formatted])
 
-            flash('Registrado con éxito')
+            flash('Movimiento registrado con éxito')
 
             return redirect(url_for('index'))
+            
+
         else:
             return render_template("purchase.html", msgError={}, dataForm=form)
 

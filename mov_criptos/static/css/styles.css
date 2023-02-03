@@ -40,6 +40,11 @@ footer {text-align: center;}
     color: var(--primary);
 }
 
+.purple_strong {
+    color: var(--primary);
+    font-weight: bold;
+}
+
 .error {
     color: red;
     border: solid 1px red;

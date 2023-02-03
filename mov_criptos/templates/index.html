@@ -7,7 +7,16 @@
         <li><a href="/status">Estado</a></li>
       </ul>
 </nav>
-
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            
+            {% for message in messages %}
+            <p class="purple_strong">{{ message }}</p>
+            {% endfor %}
+            
+        {% endif %}
+    {% endwith %}
+    
 <h4>Lista de movimientos</h4>
 {% if data %}
 <figure>
