@@ -7,6 +7,7 @@
         <li><a href="/status">Estado</a></li>
       </ul>
 </nav>
+
 <h4>Lista de movimientos</h4>
 {% if data %}
 <figure>
@@ -15,16 +16,16 @@
                 <tr>
                     <th class="columna">Fecha</th>
                     <th class="columna">Hora</th>
-                    <th class="columna">Moneda_from</th>
-                    <th class="columna">Cantidad_from</th>
-                    <th class="columna">Moneda_to</th>
-                    <th class="columna">Cantidad_to</th>
+                    <th class="columna">Moneda entregada</th>
+                    <th class="columna">Cantidad</th>
+                    <th class="columna">Moneda recibida</th>
+                    <th class="columna">Cantidad</th>
                     <th class="columna">Precio Unitario</th>
                 </tr>
             </thead>
             <tbody>
                 {% for registros in data %}
-                <tr>
+                <tr style="font-size: medium;">
                     <td>{{registros.Date}}</td>
                     <td>{{registros.Time}}</td>
                     <td>{{registros.moneda_from}}</td>

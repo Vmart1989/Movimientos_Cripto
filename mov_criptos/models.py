@@ -6,7 +6,7 @@ from mov_criptos.forms import RegistrosForm
 
 
 def show_all():
-    connect = Connection("select id,date,time,moneda_from,cantidad_from,moneda_to,cantidad_to,precio_unitario from registros order by date DESC")
+    connect = Connection("SELECT id,date,time,moneda_from,cantidad_from,moneda_to,cantidad_to,precio_unitario from registros order by date DESC")
     filas = connect.res.fetchall()
     columnas= connect.res.description
 
@@ -24,6 +24,11 @@ def show_all():
     connect.con.close()
 
     return resultado
+
+def save(registro):
+    connect = Connection(f"INSERT INTO registros (date, time, moneda_from, cantidad_from, moneda_to, cantidad_to, precio_unitario) VALUES(?,?,?,?,?,?,?)", registro)
+    connect.con.commit()
+    connect.con.close()    
 
 class ModelError(Exception):
     pass
@@ -44,56 +49,3 @@ class CryptoExchange:
 
         else:
             raise ModelError(f"status: {self.r.status_code} error: {self.resultado['error']}")
-
-
-
-##FROM COINAPI KATA##
-'''
-
-class ModelError(Exception):
-    pass
-
-class MyCoinsApiIO:
-
-    def getEUR(self, apiKey):
-        r = requests.get(f'https://rest.coinapi.io/v1/assets/?apikey={apiKey}')
-        if r.status_code != 200:
-            raise ModelError("Error en consulta de assets:{}".format(r.status_code))
-
-        lista_general = r.json()
-        coin = ""
-        for item in lista_general:
-            coin = item["asset_id"]
-            
-            if item["asset_id"] == "EUR" or \
-            item["asset_id"] == "BTC" or \
-            item["asset_id"] == "ETH" or \
-            item["asset_id"] == "USDT" or \
-            item["asset_id"] == "BNB" or \
-            item["asset_id"] == "XRP" or \
-            item["asset_id"] == "ADA" or \
-            item["asset_id"] == "SOL" or \
-            item["asset_id"] == "DOT" or \
-            item["asset_id"] == "MATIC":
-            
-                coin = coin.append(item["asset_id"])
-                
-
-class Exchange:
-    def __init__(self,cripto):
-        self.cripto = cripto
-        self.rate = None
-        self.time = None
-        self.r = None
-        self.resultado = None
-    
-    def updateExchange(self, apiKey):
-        self.r = requests.get(f'https://rest.coinapi.io/v1/exchangerate/{self.cripto}/EUR?apikey={apiKey}')
-        self.resultado = self.r.json()
-        if self.r.status_code == 200:
-            self.rate = self.resultado['rate']
-            self.time = self.resultado['time']
-        else:
-            raise ModelError(f"status: {self.r.status_code} error: {self.resultado['error']}")
-            
-'''

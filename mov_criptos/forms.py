@@ -3,6 +3,7 @@ from wtforms import StringField, DateField, FloatField, SubmitField, TimeField, 
 from wtforms.validators import DataRequired, ValidationError
 from mov_criptos.models import *
 from config import *
+from datetime import date, time
 
 COINS = [("EUR", "Euro"), ("BTC", "Bitcoin"), ("ETH", "Ethereum"),
            ("USDT", "Tether"), ("BNB", "Binance Coin"), ("XRP", "Ripple"), 
