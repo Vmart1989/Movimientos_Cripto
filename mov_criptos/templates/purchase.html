@@ -7,10 +7,11 @@
         <li><a href="/status">Estado</a></li>
       </ul>
 </nav>
-<h3>Compra/venta de criptomonedas</h3>
 
 
-<form action="/purchase" method="POST" >
+<h4>Compra/venta de criptomonedas</h4>
+<form style="text-align: center;" action="/purchase" method="POST" >
+  
     {{ dataForm.csrf_token }}
     <div class="bloque_venta">
     {{ dataForm.moneda_from.label }}
@@ -27,15 +28,12 @@
       {{ dataForm.cantidad_from.label }}
       {{ dataForm.cantidad_from(placeholder="Ingrese cantidad") }}
       </div>
-
-  
-
+    <div class="bloque_venta">  
     {{dataForm.calcular}}
+  </div>
     {% if msgError %}
-      {% for item in msgError %}
-      <article>    
-      <p class="error">{{item}}</p>
-      </article> 
+      {% for item in msgError %}    
+      <p class="error">{{item}}</p> 
       {% endfor %}
     {% endif %}  
     

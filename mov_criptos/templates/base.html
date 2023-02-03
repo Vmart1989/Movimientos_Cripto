@@ -8,16 +8,16 @@
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />    <title>Crypto Dance: {{pageTitle}}</title>
 </head>
-<body class="container-fluid">
-<article>
-    <header>
+<body class="container">
+
+    <header class="container">
         <div class="headings">
             <h1>CryptoDance App&reg;</h1>
             <cite>Registro de inversiones y compra/venta de criptomonedas</cite>
           </div>
            
     </header>
-
+    <article>
     <section>
     {% block section %}
     {% endblock %}
@@ -25,11 +25,10 @@
     </section>
     
 </body>
-
-<footer>
-    <div class="container-fluid">
-        &copy;2023 VMS - Todos los derechos reservados
-    </div>
-</footer>
 </article>
+<footer class="small">
+       <p>2023 VMS - Todos los derechos reservados</pl> 
+</footer>
+
+
 </html>

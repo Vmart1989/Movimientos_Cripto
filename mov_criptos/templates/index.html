@@ -7,8 +7,9 @@
         <li><a href="/status">Estado</a></li>
       </ul>
 </nav>
-<h3>Lista de movimientos</h3>
+<h4>Lista de movimientos</h4>
 {% if data %}
+<figure>
         <table role="grid">
             <thead>
                 <tr>
@@ -35,6 +36,7 @@
                 {% endfor %}
             </tbody>
         </table>
+    </figure>
 {% else %}
 <p>No existen movimientos...</p>
 {% endif %}

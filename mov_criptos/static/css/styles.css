@@ -1,7 +1,8 @@
-/*header{ 
-    background-color: var(--primary);
-    color: var(--primary-inverse);
-}*/
+header{ 
+    margin-bottom: -3em;
+    margin-top: -3em;
+    text-align: center;
+}
 
 .columna{
     color: var(--primary);
@@ -13,26 +14,23 @@
   'wght' 400,
   'GRAD' 0,
   'opsz' 48;
-  
-  
 }
 
 .bloque_venta {
     display: inline-block;
-    width: 33%;
-    
+    width: 45%;
 }
 
 .calculadora {
     display: inline-block;
-
 }
 
 nav {
     margin-top: -2em;
+    float: right;
 }
 
-article {padding:1em;
+article {padding:2em;
 margin: 0.5em}
 
 .purple {
@@ -40,7 +38,8 @@ margin: 0.5em}
 }
 
 .error {
-    color: white;
-    background-color: red;
+    color: red;
+    border: solid 1px red;
     text-align: center;
 }
+
