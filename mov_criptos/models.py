@@ -25,8 +25,6 @@ def show_all():
 
     return resultado
 
-
-
 def save(registro):
     connect = Connection(f"INSERT INTO registros (date, time, moneda_from, cantidad_from, moneda_to, cantidad_to, precio_unitario) VALUES(?,?,?,?,?,?,?)", registro)
     connect.con.commit()
@@ -64,12 +62,18 @@ def eurosGainedRaw():
     connect.con.close()
     return resultado[0][0]
 
-
 def formatQuantity(quantity):
-    resultado = f'{quantity:,.2f}'
-    resultado = resultado.replace(',', '*')
-    resultado = resultado.replace('.', ',')
-    resultado = resultado.replace('*', '.')
+    if quantity >=1:
+        resultado = f'{quantity:,.2f}'
+        resultado = resultado.replace(',', '*')
+        resultado = resultado.replace('.', ',')
+        resultado = resultado.replace('*', '.')
+    else:
+        resultado = f'{quantity:,.6f}'
+        resultado = resultado.replace(',', '*')
+        resultado = resultado.replace('.', ',')
+        resultado = resultado.replace('*', '.')
+
     return resultado
 
 class ModelError(Exception):

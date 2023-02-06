@@ -7,28 +7,41 @@
         <li>Estado</li>
       </ul>
 </nav>
+
+
 <h4>Estado de la inversión</h4>
 
-<article style="text-align: center;">
+
+  <article style="text-align: center;">
+{% if invertido and not recuperado %}
   <hgroup style="display: inline-block; margin: 1.5em">
-    <h5>Inversión</h5> 
+    <h5>Invertido</h5>
       <h6><span class="purple">{{invertido}}</span>€</h6>
-  </hgroup>
+      </hgroup>
+{% elif recuperado and invertido %}
   <hgroup style="display: inline-block; margin: 1.5em">
-    <h5>Ganancias</h5> 
-      <h6><span class="purple">{{recuperado}}</span>€</h6>
-  </hgroup>
-  <hgroup style="display: inline-block; margin: 1.5em">
-    <h5>Valor de compra</h5> 
+    <h5>Invertido</h5>
+      <h6><span class="purple">{{invertido}}</span>€</h6>
+      </hgroup>
+      <hgroup style="display: inline-block; margin: 1.5em">
+      <h5>Recuperado</h5> 
+      <h6><span class="purple">{{recuperado}}</span>€</h6>    
+      </hgroup>
+
+      <hgroup style="display: inline-block; margin: 1.5em">
+      <h5>Valor de compra</h5> 
       <h6><span class="purple">{{valorCompra}}</span>€</h6>
-  </hgroup>
-  <hgroup style="display: inline-block; margin: 1.5em">
-    <h5>Valor actual</h5> 
+      </hgroup>
+
+      <hgroup style="display: inline-block; margin: 1.5em">
+      <h5>Valor actual</h5> 
       <h6><span class="purple">Placeholder</span>€</h6>
-  </hgroup>
-
-<button><a href="/">Volver</a></button>
-
+      </hgroup>
+{% else %}
+      <p>No existen movimientos...</p>
+{% endif %}
 </article>
 
+
+<button onclick="location.href='/'" type="button">Volver</button>
 {%endblock%}

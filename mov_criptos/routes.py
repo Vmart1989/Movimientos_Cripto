@@ -32,8 +32,8 @@ def purchase():
         cantidad_to = cantidad*rate
         precio_unitario = cantidad/cantidad_to
 
-        cantidad_to_formatted = f'{cantidad_to:.6f}'
-        rate_formatted = f'{rate:.6f}'
+        #cantidad_to_formatted = f'{cantidad_to:.6f}'
+        #rate_formatted = f'{rate:.6f}'
         p_u_formatted = f'{precio_unitario:.6f}'
         
         def validateForm(form):
@@ -48,13 +48,13 @@ def purchase():
             return render_template("purchase.html", pageTitle = "Transacción", dataForm = form, msgError=error)
 
         if form.calcular.data:
-                return render_template("purchase.html",pageTitle = "Cálculo de movimiento", dataForm = form, rate=rate_formatted, cantidad_to=cantidad_to_formatted, precio_unitario = p_u_formatted, moneda_to=moneda_to, moneda_from=moneda_from, cantidad=cantidad)
+                return render_template("purchase.html",pageTitle = "Cálculo de movimiento", dataForm = form, rate=formatQuantity(rate), cantidad_to=formatQuantity(cantidad_to), precio_unitario = formatQuantity(precio_unitario), moneda_to=moneda_to, moneda_from=moneda_from, cantidad=formatQuantity(cantidad))
 
         if form.validate_on_submit():
             fecha = date.today()
             now = datetime.now()
             hora = now.strftime("%H:%M:%S")
-            save([fecha,hora, moneda_from, cantidad, moneda_to, cantidad_to_formatted, p_u_formatted])
+            save([fecha,hora, moneda_from, formatQuantity(cantidad), moneda_to, formatQuantity(cantidad_to), formatQuantity(precio_unitario)])
 
             flash('¡Movimiento registrado con éxito!')
 
@@ -66,5 +66,5 @@ def purchase():
 
 @app.route("/status")
 def status():
-    return render_template("status.html", pageTitle = "Estado", invertido = eurosSpent(), recuperado = eurosGained(), valorCompra = eurosSpentRaw() - eurosGainedRaw())
+    return render_template("status.html", pageTitle = "Estado", invertido = eurosSpent(), recuperado = eurosGained(), valorCompra = formatQuantity(eurosSpentRaw() - eurosGainedRaw()))
 
