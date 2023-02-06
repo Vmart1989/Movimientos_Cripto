@@ -6,6 +6,8 @@
         <li><a href="/purchase">Compra</a></li>|
         <li><a href="/status">Estado</a></li>
       </ul>
+
+
 </nav>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -16,7 +18,7 @@
             
         {% endif %}
     {% endwith %}
-    
+
 <h4>Lista de movimientos</h4>
 {% if data %}
 <figure>

@@ -16,7 +16,7 @@ class RegistrosForm(FlaskForm):
    moneda_from = SelectField('Moneda a cambiar', choices=COINS, validators=[DataRequired(message="Selecciona moneda de origen")])
    moneda_to = SelectField('Moneda deseada', choices= COINS, validators=[DataRequired(message="Selecciona moneda deseada")]) 
    
-   cantidad_from = FloatField('Cantidad', validators=[DataRequired(message="Ingresa cantidad"), NumberRange(min=0.00000000000000001, max=None, message="Introduce una cantidad positiva")])
+   cantidad_from = FloatField('Cantidad', validators=[DataRequired(message="Ingresa cantidad")])
    calcular = SubmitField('Calcular')
    submit = SubmitField('Realizar transacción')
 
