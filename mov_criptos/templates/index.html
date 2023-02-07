@@ -40,10 +40,10 @@
                     <td>{{registros.Date}}</td>
                     <td>{{registros.Time}}</td>
                     <td>{{registros.moneda_from}}</td>
-                    <td>{{registros.cantidad_from}}</td>
+                    <td>{{"%.2f"|format(registros.cantidad_from)}}</td>
                     <td>{{registros.moneda_to}}</td>
-                    <td>{{registros.cantidad_to}}</td>
-                    <td>{{registros.Precio_Unitario}}</td>
+                    <td>{{"%.2f"|format(registros.cantidad_to)}}</td>
+                    <td>{{"%.6f"|format(registros.Precio_Unitario)}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

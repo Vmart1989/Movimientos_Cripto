@@ -54,7 +54,7 @@ def purchase():
             fecha = date.today()
             now = datetime.now()
             hora = now.strftime("%H:%M:%S")
-            save([fecha,hora, moneda_from, formatQuantity(cantidad), moneda_to, formatQuantity(cantidad_to), formatQuantity(precio_unitario)])
+            save([fecha,hora, moneda_from, cantidad, moneda_to, cantidad_to, precio_unitario])
 
             flash('¡Movimiento registrado con éxito!')
 
@@ -66,5 +66,5 @@ def purchase():
 
 @app.route("/status")
 def status():
-    return render_template("status.html", pageTitle = "Estado", invertido = eurosSpent(), recuperado = eurosGained(), valorCompra = formatQuantity(eurosSpentRaw() - eurosGainedRaw()))
+    return render_template("status.html", pageTitle = "Estado", invertido = eurosSpent(), recuperado = eurosGained(), valorCompra = formatQuantity(eurosSpentRaw() - eurosGainedRaw()), valorActual = sumCryptoTo())
 

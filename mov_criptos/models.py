@@ -110,3 +110,35 @@ class CryptoExchange:
 
         else:
             raise ModelError(f"status: {self.r.status_code} error: {self.resultado['error']}")
+
+
+def sumCryptoTo():
+    connect = Connection(f"SELECT sum(cantidad_to), moneda_to FROM Registros GROUP by moneda_to")
+    sumact = connect.res.fetchall()
+    totales_criptos_to = []
+
+    for suma in sumact:
+        if suma[1] != 'EUR':
+            totales_criptos_to.append(suma)
+    
+    connect.con.close()
+
+    return totales_criptos_to
+
+def sumCryptoFrom():
+    connect = Connection(f"SELECT sum(cantidad_from), moneda_from FROM Registros GROUP by moneda_from")
+    sumacf = connect.res.fetchall()
+    totales_criptos_from = []
+    
+    for suma in sumacf:
+        if suma[1] != 'EUR':
+            totales_criptos_from.append(suma)
+
+    connect.con.close()
+
+    return totales_criptos_from
+
+
+    
+
+
