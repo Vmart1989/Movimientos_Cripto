@@ -34,33 +34,48 @@ def eurosSpent():
     connect = Connection(f"SELECT sum(cantidad_from) FROM Registros WHERE moneda_from = 'EUR'")
     resultado = connect.res.fetchall()
     connect.con.close()
-    resultado = f'{resultado[0][0]:,.2f}'
-    resultado = resultado.replace(',', '*')
-    resultado = resultado.replace('.', ',')
-    resultado = resultado.replace('*', '.')
+    if resultado[0][0] == None:
+        resultado = 0
+    else:
+        resultado = f'{resultado[0][0]:,.2f}'
+        resultado = resultado.replace(',', '*')
+        resultado = resultado.replace('.', ',')
+        resultado = resultado.replace('*', '.')
     return resultado
 
 def eurosSpentRaw():
     connect = Connection(f"SELECT sum(cantidad_from) FROM Registros WHERE moneda_from = 'EUR'")
     resultado = connect.res.fetchall()
     connect.con.close()
-    return resultado[0][0]
+    if resultado[0][0] == None:
+        resultado = 0
+    else:
+        resultado = resultado[0][0]
+    return resultado
 
 def eurosGained():
     connect = Connection(f"SELECT sum(cantidad_to) FROM Registros WHERE moneda_to = 'EUR'")
     resultado = connect.res.fetchall()
     connect.con.close()
-    resultado = f'{resultado[0][0]:,.2f}'
-    resultado = resultado.replace(',', '*')
-    resultado = resultado.replace('.', ',')
-    resultado = resultado.replace('*', '.')
+    if resultado[0][0] == None:
+        resultado = 0
+    else:
+        resultado = f'{resultado[0][0]:,.2f}'
+        resultado = resultado.replace(',', '*')
+        resultado = resultado.replace('.', ',')
+        resultado = resultado.replace('*', '.')
     return resultado    
 
 def eurosGainedRaw():
     connect = Connection(f"SELECT sum(cantidad_to) FROM Registros WHERE moneda_to = 'EUR'")
     resultado = connect.res.fetchall()
     connect.con.close()
-    return resultado[0][0]
+    if resultado[0][0] == None:
+        resultado = 0
+    else:
+        resultado = resultado[0][0]
+    return resultado
+
 
 def formatQuantity(quantity):
     if quantity >=1:
