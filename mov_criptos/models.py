@@ -1,9 +1,8 @@
 import sqlite3
-import requests #forcoinAPI
+import requests
 from config import *
 from mov_criptos.connection import Connection
 from mov_criptos.forms import RegistrosForm
-
 
 def show_all():
     connect = Connection("SELECT id,date,time,moneda_from,cantidad_from,moneda_to,cantidad_to,precio_unitario from registros order by date DESC, time DESC")
@@ -76,7 +75,6 @@ def eurosGainedRaw():
         resultado = resultado[0][0]
     return resultado
 
-
 def formatQuantity(quantity):
     if quantity >=1:
         resultado = f'{quantity:,.2f}'
@@ -118,50 +116,64 @@ class CryptoSum:
     def sumCryptoTo(self):
         connect = Connection(f"SELECT sum(cantidad_to), moneda_to FROM Registros GROUP by moneda_to")
         sumact = connect.res.fetchall()
-        totales_criptos_to = []
-        for suma in sumact:
-            if suma[1] != 'EUR':
-                totales_criptos_to.append(suma)
-        connect.con.close()
-        return totales_criptos_to
+        if sumact != "":
+            totales_criptos_to = []
+            for suma in sumact:
+                if suma[1] != 'EUR':
+                    totales_criptos_to.append(suma)
+            connect.con.close()
+            return totales_criptos_to
+        else:
+            return 0
 
     def sumCryptoFrom(self):
         connect = Connection(f"SELECT sum(cantidad_from), moneda_from FROM Registros GROUP by moneda_from")
         sumacf = connect.res.fetchall()
-        totales_criptos_from = []
-        for suma in sumacf:
-            if suma[1] != 'EUR':
-                totales_criptos_from.append(suma)
-        connect.con.close()
-        return totales_criptos_from
+        if sumacf != "":
+            totales_criptos_from = []
+            for suma in sumacf:
+                if suma[1] != 'EUR':
+                    totales_criptos_from.append(suma)
+            connect.con.close()
+            return totales_criptos_from
+        else:
+            return 0
 
     def substractCryptoSums(self):
         crypto_to =  self.sumCryptoTo()
         crypto_from = self.sumCryptoFrom()
         resultado = []
-        for suma_to in crypto_to:
-            for suma_from in crypto_from:
-                if suma_to[1] == suma_from[1]:
-                    resta = suma_to[0] - suma_from[0]
-                    resultado.append(suma_from[1])
-                    resultado.append(resta)
-                    nuevo_resultado = [(resultado[i],resultado[i+1]) for i in range(0,len(resultado),2)]
-        return nuevo_resultado
+        if crypto_to != 0 and crypto_from !=0:
+            for suma_to in crypto_to:
+                for suma_from in crypto_from:
+                    if suma_to[1] == suma_from[1]:
+                        resta = suma_to[0] - suma_from[0]
+                        resultado.append(suma_from[1])
+                        resultado.append(resta)
+                        nuevo_resultado = [(resultado[i],resultado[i+1]) for i in range(0,len(resultado),2)]    
+                        resultado = nuevo_resultado
+                        return resultado
+        else:
+            return 0
+        
     
     def getRateMyCryptos(self):
         restas_cripto = self.substractCryptoSums()
         lista_valores_cripto = []
-        for c in restas_cripto:
-            crypto = c[0]
-            r = requests.get(f'https://rest.coinapi.io/v1/exchangerate/{crypto}/EUR?apikey={API_KEY}')
-            resultado = r.json()
-            if r.status_code == 200:
-                rate = resultado['rate']
-                valor_cripto = rate * c[1]
-                lista_valores_cripto.append(valor_cripto)   
-            else:
-                raise ModelError(f"status: {r.status_code} error: {resultado['error']}")
-        return sum(lista_valores_cripto)
+        if restas_cripto != None:
+            for c in restas_cripto:
+                crypto = c[0]
+                r = requests.get(f'https://rest.coinapi.io/v1/exchangerate/{crypto}/EUR?apikey={API_KEY}')
+                resultado = r.json()
+                if r.status_code == 200:
+                    rate = resultado['rate']
+                    valor_cripto = rate * c[1]
+                    lista_valores_cripto.append(valor_cripto)   
+                else:
+                    raise ModelError(f"status: {r.status_code} error: {resultado['error']}")
+            return sum(lista_valores_cripto)
+        else:
+            return 0
 
     
 
