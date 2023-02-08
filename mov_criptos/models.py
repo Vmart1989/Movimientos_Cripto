@@ -81,6 +81,8 @@ def formatQuantity(quantity):
         resultado = resultado.replace(',', '*')
         resultado = resultado.replace('.', ',')
         resultado = resultado.replace('*', '.')
+    elif quantity == 0:
+        resultado = 0
     else:
         resultado = f'{quantity:,.6f}'
         resultado = resultado.replace(',', '*')

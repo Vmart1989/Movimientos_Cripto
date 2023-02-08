@@ -55,5 +55,5 @@ def purchase():
 
 @app.route("/status")
 def status():
-    return render_template("status.html", pageTitle = "Estado", invertido = eurosSpent(), recuperado = eurosGained(), valorCompra = formatQuantity(eurosSpentRaw() - eurosGainedRaw()), valorActual = formatQuantity(CryptoSum().getRateMyCryptos()))
+    return render_template("status.html", pageTitle = "Estado", invertido = eurosSpent(), recuperado = eurosGained(), valorCompraRaw = eurosSpentRaw() - eurosGainedRaw(), valorCompra = formatQuantity(eurosSpentRaw() - eurosGainedRaw()), valorActual = formatQuantity(CryptoSum().getRateMyCryptos()), valorActualRaw = CryptoSum().getRateMyCryptos())
 
