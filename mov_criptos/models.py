@@ -147,22 +147,21 @@ class CryptoSum:
                     resultado.append(resta)
                     nuevo_resultado = [(resultado[i],resultado[i+1]) for i in range(0,len(resultado),2)]
         return nuevo_resultado
-    '''
+    
     def getRateMyCryptos(self):
         restas_cripto = self.substractCryptoSums()
+        lista_valores_cripto = []
         for c in restas_cripto:
             crypto = c[0]
-
-        rate = 0
-        r = requests.get(f'https://rest.coinapi.io/v1/exchangerate/{crypto}/EUR?apikey={API_KEY}')
-        resultado = r.json()
-        if r.status_code == 200:
-            rate = resultado['rate']
-            return rate
-        else:
-            raise ModelError(f"status: {r.status_code} error: {resultado['error']}")
-    '''
-  
+            r = requests.get(f'https://rest.coinapi.io/v1/exchangerate/{crypto}/EUR?apikey={API_KEY}')
+            resultado = r.json()
+            if r.status_code == 200:
+                rate = resultado['rate']
+                valor_cripto = rate * c[1]
+                lista_valores_cripto.append(valor_cripto)   
+            else:
+                raise ModelError(f"status: {r.status_code} error: {resultado['error']}")
+        return sum(lista_valores_cripto)
 
     
 

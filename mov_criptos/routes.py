@@ -13,16 +13,13 @@ def index():
 
 @app.route("/purchase",methods=["GET","POST",])
 def purchase(): 
-
     if request.method == "GET":
         form = RegistrosForm()
         form.moneda_from.default = 'EUR'
         form.moneda_to.default = 'BTC'
         form.process()
-        
         return render_template("purchase.html", pageTitle = "Transacción", dataForm = form)
-    else: #POST
-
+    else:
         form = RegistrosForm(data=request.form)
         moneda_from = form.moneda_from.data
         moneda_to = form.moneda_to.data
@@ -31,10 +28,6 @@ def purchase():
         rate = exchange.getRate()
         cantidad_to = cantidad*rate
         precio_unitario = cantidad/cantidad_to
-
-        #cantidad_to_formatted = f'{cantidad_to:.6f}'
-        #rate_formatted = f'{rate:.6f}'
-        p_u_formatted = f'{precio_unitario:.6f}'
         
         def validateForm(form):
             errores = []
@@ -55,16 +48,12 @@ def purchase():
             now = datetime.now()
             hora = now.strftime("%H:%M:%S")
             save([fecha,hora, moneda_from, cantidad, moneda_to, cantidad_to, precio_unitario])
-
             flash('¡Movimiento registrado con éxito!')
-
             return redirect(url_for('index'))
-            
-
         else:
             return render_template("purchase.html", msgError={}, dataForm=form)
 
 @app.route("/status")
 def status():
-    return render_template("status.html", pageTitle = "Estado", invertido = eurosSpent(), recuperado = eurosGained(), valorCompra = formatQuantity(eurosSpentRaw() - eurosGainedRaw()), valorActual = CryptoSum().substractCryptoSums())
+    return render_template("status.html", pageTitle = "Estado", invertido = eurosSpent(), recuperado = eurosGained(), valorCompra = formatQuantity(eurosSpentRaw() - eurosGainedRaw()), valorActual = formatQuantity(CryptoSum().getRateMyCryptos()))
 
