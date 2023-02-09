@@ -4,6 +4,7 @@ from config import *
 from mov_criptos.connection import Connection
 from mov_criptos.forms import RegistrosForm
 
+
 def show_all():
     connect = Connection("SELECT id,date,time,moneda_from,cantidad_from,moneda_to,cantidad_to,precio_unitario from registros order by date DESC, time DESC")
     filas = connect.res.fetchall()
@@ -63,7 +64,17 @@ def eurosGained():
         resultado = resultado.replace(',', '*')
         resultado = resultado.replace('.', ',')
         resultado = resultado.replace('*', '.')
-    return resultado    
+    return resultado  
+
+def singleCryptoGained():
+    connect = Connection(f"SELECT sum(cantidad_to) FROM Registros WHERE moneda_to = 'BTC'")
+    resultado = connect.res.fetchall()
+    connect.con.close()
+    if resultado[0][0] == None:
+        resultado = 0
+    else:
+        resultado = resultado[0][0]
+    return resultado   
 
 def eurosGainedRaw():
     connect = Connection(f"SELECT sum(cantidad_to) FROM Registros WHERE moneda_to = 'EUR'")
@@ -83,6 +94,11 @@ def formatQuantity(quantity):
         resultado = resultado.replace('*', '.')
     elif quantity == 0:
         resultado = 0
+    elif quantity < 0:
+        resultado = f'{quantity:,.2f}'
+        resultado = resultado.replace(',', '*')
+        resultado = resultado.replace('.', ',')
+        resultado = resultado.replace('*', '.')
     else:
         resultado = f'{quantity:,.6f}'
         resultado = resultado.replace(',', '*')
@@ -176,6 +192,8 @@ class CryptoSum:
             return sum(lista_valores_cripto)
         else:
             return 0
+        
+
 
     
 

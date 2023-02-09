@@ -44,6 +44,11 @@ footer {text-align: center;}
     color: var(--primary);
     font-weight: bold;
 }
+.purple_small {
+    color: var(--primary);
+    font-weight:lighter;
+}
+
 
 .error {
     color: red;

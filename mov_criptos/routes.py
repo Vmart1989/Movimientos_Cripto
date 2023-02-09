@@ -2,7 +2,7 @@ from datetime import date, datetime
 from mov_criptos import app
 from flask import render_template, request, redirect, url_for, flash
 from mov_criptos.models import *
-from mov_criptos.forms import RegistrosForm, COINS, ValidationError
+from mov_criptos.forms import RegistrosForm, COINS, ValidationError, CoinsAvailable
 
 
 @app.route("/")
@@ -15,10 +15,11 @@ def index():
 def purchase(): 
     if request.method == "GET":
         form = RegistrosForm()
+        form.moneda_from.data
         form.moneda_from.default = 'EUR'
         form.moneda_to.default = 'BTC'
         form.process()
-        return render_template("purchase.html", pageTitle = "Transacción", dataForm = form)
+        return render_template("purchase.html", pageTitle = "Transacción", dataForm = form, cryptoAvailable = singleCryptoGained())
     else:
         form = RegistrosForm(data=request.form)
         moneda_from = form.moneda_from.data
@@ -28,6 +29,8 @@ def purchase():
         rate = exchange.getRate()
         cantidad_to = cantidad*rate
         precio_unitario = cantidad/cantidad_to
+        
+    
         
         def validateForm(form):
             errores = []
@@ -56,4 +59,3 @@ def purchase():
 @app.route("/status")
 def status():
     return render_template("status.html", pageTitle = "Estado", invertido = eurosSpent(), recuperado = eurosGained(), valorCompraRaw = eurosSpentRaw() - eurosGainedRaw(), valorCompra = formatQuantity(eurosSpentRaw() - eurosGainedRaw()), valorActual = formatQuantity(CryptoSum().getRateMyCryptos()), valorActualRaw = CryptoSum().getRateMyCryptos())
-

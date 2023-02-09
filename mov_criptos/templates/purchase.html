@@ -15,9 +15,13 @@
   
     {{ dataForm.csrf_token }}
     <div class="bloque_venta">
+      
     {{ dataForm.moneda_from.label }}
-    {{ dataForm.moneda_from }}    
+    <small class="purple_small">Fondos: {{cryptoAvailable}}</small>
+    {{ dataForm.moneda_from }} 
+    
     </div>
+    
    
     <div class="bloque_venta">
     {{ dataForm.moneda_to.label }}
@@ -32,7 +36,7 @@
     {{dataForm.calcular}}
   </div>
 
-
+  
 
     {% if msgError %}
       {% for item in msgError %}    
