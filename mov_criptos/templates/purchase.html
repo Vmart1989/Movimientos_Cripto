@@ -17,7 +17,6 @@
     <div class="bloque_venta">
       
     {{ dataForm.moneda_from.label }}
-    <small class="purple_small">Fondos: {{cryptoAvailable}}</small>
     {{ dataForm.moneda_from }}
     <!--<select id="moneda_from" name="moneda_from" required>
     <option disabled selected value="SELECT">Seleccione moneda</option>
@@ -58,8 +57,13 @@
       {% block content %} 
       {% if not msgError and dataForm.calcular.data %}
       
+      
       <article>
-      <hgroup>
+        {% if cryptoAvailable != 'ilimitados' %}
+        <p class="purple_strong">Fondos disponibles de {{moneda_from}}: {{"%.2f"|format(cryptoAvailable)}}</p>
+        {% endif %}  
+        
+        <hgroup>
       <h5>Cambio:</h5> 
       <h6><span class="purple">1 {{moneda_from}}</span> vale <span class="purple">{{ rate }} {{moneda_to}}</span></h6>
       </hgroup>

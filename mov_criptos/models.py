@@ -77,7 +77,7 @@ def eurosGained():
     return resultado  
 
 def singleCryptoGained(cripto):
-    connect = Connection(f"SELECT sum(cantidad_to) FROM Registros WHERE moneda_to = {cripto}")
+    connect = Connection(f"SELECT sum(cantidad_to) FROM Registros WHERE moneda_to = '{cripto}'")
     resultado = connect.res.fetchall()
     connect.con.close()
     if resultado[0][0] == None:

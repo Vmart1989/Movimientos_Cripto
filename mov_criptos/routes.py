@@ -35,7 +35,7 @@ def purchase():
             errores = []
             if moneda_from == moneda_to:
                 errores.append("Escoja monedas diferentes")
-            if moneda_from not in monedas_disponibles:
+            if moneda_from not in monedas_disponibles and moneda_from != 'EUR':
                 errores.append(f'No tiene fondos disponibles de {moneda_from}')
             return errores
         
@@ -44,7 +44,7 @@ def purchase():
             return render_template("purchase.html", pageTitle = "Transacción", dataForm = form, msgError=error)
 
         if form.calcular.data:
-                return render_template("purchase.html",pageTitle = "Cálculo de movimiento", dataForm = form, rate=formatQuantity(rate), cantidad_to=formatQuantity(cantidad_to), precio_unitario = formatQuantity(precio_unitario), moneda_to=moneda_to, moneda_from=moneda_from, cantidad=formatQuantity(cantidad))
+                return render_template("purchase.html",pageTitle = "Cálculo de movimiento", dataForm = form, rate=formatQuantity(rate), cantidad_to=formatQuantity(cantidad_to), precio_unitario = formatQuantity(precio_unitario), moneda_to=moneda_to, moneda_from=moneda_from, cantidad=formatQuantity(cantidad), cryptoAvailable = singleCryptoGained(cripto=moneda_from))
 
         if form.validate_on_submit():
             fecha = date.today()
