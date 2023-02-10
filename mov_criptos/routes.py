@@ -2,7 +2,7 @@ from datetime import date, datetime
 from mov_criptos import app
 from flask import render_template, request, redirect, url_for, flash
 from mov_criptos.models import *
-from mov_criptos.forms import RegistrosForm, COINS, ValidationError
+from mov_criptos.forms import RegistrosForm
 
 
 @app.route("/")
@@ -29,14 +29,15 @@ def purchase():
         rate = exchange.getRate()
         cantidad_to = cantidad*rate
         precio_unitario = cantidad/cantidad_to
-        monedas_disponibles = showMonedaTo()
+        cryptoAvailable = CryptosTo(cripto=moneda_from) - CryptosFrom(cripto=moneda_from)
         
         def validateForm(form):
             errores = []
             if moneda_from == moneda_to:
                 errores.append("Escoja monedas diferentes")
-            if moneda_from not in monedas_disponibles and moneda_from != 'EUR':
-                errores.append(f'No tiene fondos disponibles de {moneda_from}')
+            elif cantidad > cryptoAvailable and moneda_from != 'EUR':
+                errores.append(f'La cantidad a cambiar de {moneda_from} debe ser menor o igual a sus fondos disponibles')
+                errores.append(f'Actualmente dispone de {formatQuantity(cryptoAvailable)} {moneda_from} en su cartera de criptos')
             return errores
         
         error = validateForm(request.form)
@@ -44,7 +45,13 @@ def purchase():
             return render_template("purchase.html", pageTitle = "Transacción", dataForm = form, msgError=error)
 
         if form.calcular.data:
-                return render_template("purchase.html",pageTitle = "Cálculo de movimiento", dataForm = form, rate=formatQuantity(rate), cantidad_to=formatQuantity(cantidad_to), precio_unitario = formatQuantity(precio_unitario), moneda_to=moneda_to, moneda_from=moneda_from, cantidad=formatQuantity(cantidad), cryptoAvailable = singleCryptoGained(cripto=moneda_from))
+                return render_template("purchase.html",pageTitle = "Cálculo de movimiento", 
+                                       dataForm = form, rate=formatQuantity(rate), 
+                                       cantidad_to=formatQuantity(cantidad_to), 
+                                       precio_unitario = formatQuantity(precio_unitario), 
+                                       moneda_to=moneda_to, moneda_from=moneda_from, 
+                                       cantidad=formatQuantity(cantidad), 
+                                       cryptoAvailable = cryptoAvailable)
 
         if form.validate_on_submit():
             fecha = date.today()
@@ -59,3 +66,18 @@ def purchase():
 @app.route("/status")
 def status():
     return render_template("status.html", pageTitle = "Estado", invertido = eurosSpent(), recuperado = eurosGained(), valorCompraRaw = eurosSpentRaw() - eurosGainedRaw(), valorCompra = formatQuantity(eurosSpentRaw() - eurosGainedRaw()), valorActual = formatQuantity(CryptoSum().getRateMyCryptos()), valorActualRaw = CryptoSum().getRateMyCryptos())
+
+@app.route("/wallet")
+def wallet():
+    return render_template("wallet.html", pageTitle = "Cartera", 
+                           ada = formatQuantity(CryptosTo('ADA') - CryptosFrom(cripto='ADA')),
+                           bnb = formatQuantity(CryptosTo('BNB') - CryptosFrom(cripto='BNB')),
+                           btc = formatQuantity(CryptosTo('BTC') - CryptosFrom(cripto='BTC')),
+                           dot = formatQuantity(CryptosTo('DOT') - CryptosFrom(cripto='DOT')),
+                           eth = formatQuantity(CryptosTo('ETH') - CryptosFrom(cripto='ETH')),
+                           matic = formatQuantity(CryptosTo('MATIC') - CryptosFrom(cripto='MATIC')),
+                           sol = formatQuantity(CryptosTo('SOL') - CryptosFrom(cripto='SOL')),
+                           usdt = formatQuantity(CryptosTo('USDT') - CryptosFrom(cripto='USDT')),
+                           xrp = formatQuantity(CryptosTo('XRP') - CryptosFrom(cripto='XRP'))
+                           )
+                        

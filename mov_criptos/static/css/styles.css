@@ -53,7 +53,7 @@ footer {text-align: center;}
 
 .error {
     color: red;
-    border: solid 1px red;
+    border: solid 2px red;
     text-align: center;
 }
 
@@ -65,5 +65,13 @@ footer {text-align: center;}
     color: red
 }
 
+.red_strong {
+    color: red;
+    font-weight: bold;
+}
+
+.criptologo {
+    width: 2em;
+}
 
 

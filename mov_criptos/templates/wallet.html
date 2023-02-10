@@ -1,0 +1,29 @@
+{% extends "base.html"%}
+{%block section%}
+
+<nav>
+    <ul>
+        <li><a href="/">Inicio</a></li>|
+        <li><a href="/purchase">Compra</a></li>|
+        <li><a href="/status">Estado</a></li>|
+        <li>Cartera</li>
+      </ul>
+</nav>
+
+<h4>Cartera de criptomonedas</h4>
+
+<article>
+    <ul>
+        <li><img class="criptologo" src="https://cryptologos.cc/logos/cardano-ada-logo.png?v=024" alt="Cardano logo"> Cardano (ADA): {{ada}}</li>
+        <li><img class="criptologo" src="https://seeklogo.com/images/B/binance-coin-bnb-logo-CD94CC6D31-seeklogo.com.png" alt="Binance logo"> Binance Coin (BNB): {{bnb}}</li>
+        <li><img class="criptologo" src="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=024" alt="Bitcoin logo"> Bitcoin (BTC): {{btc}}</li>
+        <li><img class="criptologo" src="https://cryptologos.cc/logos/polkadot-new-dot-logo.png?v=024" alt="Polkadot logo"> Polkadot (DOT): {{dot}}</li>
+        <li><img class="criptologo" src="https://cryptologos.cc/logos/ethereum-eth-logo.png?v=024" alt="Ethereum logo"> Ethereum (ETH): {{eth}}</li>
+        <li><img class="criptologo" src="https://cryptologos.cc/logos/polygon-matic-logo.png?v=024" alt="Polygon logo"> Polygon (MATIC): {{matic}}</li>
+        <li><img class="criptologo" src="https://cryptologos.cc/logos/solana-sol-logo.png?v=024" alt="Solana logo"> Solana (SOL): {{sol}}</li>
+        <li><img class="criptologo" src="https://cryptologos.cc/logos/tether-usdt-logo.png?v=024" alt="Tether logo"> Tether (USDT): {{usdt}}</li>
+        <li><img class="criptologo" src="https://cryptologos.cc/logos/xrp-xrp-logo.png?v=024" alt="XRP logo"> XRP (XRP): {{xrp}}</li>
+    </ul>
+</article>
+
+{%endblock%}

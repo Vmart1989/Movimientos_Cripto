@@ -1,4 +1,3 @@
-import sqlite3
 import requests
 from config import *
 from mov_criptos.connection import Connection
@@ -76,17 +75,25 @@ def eurosGained():
         resultado = resultado.replace('*', '.')
     return resultado  
 
-def singleCryptoGained(cripto):
+def CryptosTo(cripto):
     connect = Connection(f"SELECT sum(cantidad_to) FROM Registros WHERE moneda_to = '{cripto}'")
     resultado = connect.res.fetchall()
     connect.con.close()
     if resultado[0][0] == None:
         resultado = 0
-    if cripto == 'EUR':
-        resultado = 'ilimitados'
     else:
         resultado = resultado[0][0]
-    return resultado   
+    return resultado
+
+def CryptosFrom(cripto):
+    connect = Connection(f"SELECT sum(cantidad_from) FROM Registros WHERE moneda_from = '{cripto}'")
+    resultado = connect.res.fetchall()
+    connect.con.close()
+    if resultado[0][0] == None:
+        resultado = 0
+    else:
+        resultado = resultado[0][0]
+    return resultado
 
 
 def eurosGainedRaw():

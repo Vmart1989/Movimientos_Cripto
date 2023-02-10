@@ -4,7 +4,8 @@
     <ul>
         <li>Inicio</li>|
         <li><a href="/purchase">Compra</a></li>|
-        <li><a href="/status">Estado</a></li>
+        <li><a href="/status">Estado</a></li>|
+        <li><a href="/wallet">Cartera</a></li>
       </ul>
 
 
@@ -40,9 +41,9 @@
                     <td>{{registros.Date}}</td>
                     <td>{{registros.Time}}</td>
                     <td>{{registros.moneda_from}}</td>
-                    <td>{{"%.2f"|format(registros.cantidad_from)}}</td>
+                    <td>{{"%.3f"|format(registros.cantidad_from)}}</td>
                     <td>{{registros.moneda_to}}</td>
-                    <td>{{"%.2f"|format(registros.cantidad_to)}}</td>
+                    <td>{{"%.3f"|format(registros.cantidad_to)}}</td>
                     <td>{{"%.6f"|format(registros.Precio_Unitario)}}</td>
                 </tr>
                 {% endfor %}

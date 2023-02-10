@@ -5,7 +5,8 @@
     <ul>
         <li><a href="/">Inicio</a></li>|
         <li>Compra</li>|
-        <li><a href="/status">Estado</a></li>
+        <li><a href="/status">Estado</a></li>|
+        <li><a href="/wallet">Cartera</a></li>
       </ul>
 </nav>
 
@@ -18,19 +19,7 @@
       
     {{ dataForm.moneda_from.label }}
     {{ dataForm.moneda_from }}
-    <!--<select id="moneda_from" name="moneda_from" required>
-    <option disabled selected value="SELECT">Seleccione moneda</option>
-    <option value="EUR">Euro (EUR)</option>
-    <option value="ADA">Cardano (ADA)</option>
-    <option value="BNB">Binance Coin (BNB)</option>
-    <option value="BTC">Bitcoin (BTC)</option>
-    <option value="DOT">Polkadot (DOT)</option>
-    <option value="ETH">Ethereum (ETH)</option>
-    <option value="MATIC">MATIC</option>
-    <option value="SOL">SOL</option>
-    <option value="USDT">Tether (USDT)</option>
-    <option value="XRP">Ripple (XRP)</option>
-  </select>-->  
+ 
 </div>
    
     <div class="bloque_venta">
@@ -49,9 +38,12 @@
   
 
     {% if msgError %}
-      {% for item in msgError %}    
-      <p class="error">{{item}}</p> 
+    <article class="error">
+      {% for item in msgError %} 
+      <p class="red_strong">{{item}}</p> 
+      
       {% endfor %}
+    </article> 
     {% endif %}  
     
       {% block content %} 
@@ -59,7 +51,7 @@
       
       
       <article>
-        {% if cryptoAvailable != 'ilimitados' %}
+        {% if moneda_from != 'EUR' %}
         <p class="purple_strong">Fondos disponibles de {{moneda_from}}: {{"%.2f"|format(cryptoAvailable)}}</p>
         {% endif %}  
         
