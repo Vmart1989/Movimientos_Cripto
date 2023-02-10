@@ -18,10 +18,21 @@
       
     {{ dataForm.moneda_from.label }}
     <small class="purple_small">Fondos: {{cryptoAvailable}}</small>
-    {{ dataForm.moneda_from }} 
-    
-    </div>
-    
+    {{ dataForm.moneda_from }}
+    <!--<select id="moneda_from" name="moneda_from" required>
+    <option disabled selected value="SELECT">Seleccione moneda</option>
+    <option value="EUR">Euro (EUR)</option>
+    <option value="ADA">Cardano (ADA)</option>
+    <option value="BNB">Binance Coin (BNB)</option>
+    <option value="BTC">Bitcoin (BTC)</option>
+    <option value="DOT">Polkadot (DOT)</option>
+    <option value="ETH">Ethereum (ETH)</option>
+    <option value="MATIC">MATIC</option>
+    <option value="SOL">SOL</option>
+    <option value="USDT">Tether (USDT)</option>
+    <option value="XRP">Ripple (XRP)</option>
+  </select>-->  
+</div>
    
     <div class="bloque_venta">
     {{ dataForm.moneda_to.label }}

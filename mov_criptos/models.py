@@ -2,7 +2,7 @@ import sqlite3
 import requests
 from config import *
 from mov_criptos.connection import Connection
-from mov_criptos.forms import RegistrosForm
+from mov_criptos.forms import *
 
 
 def show_all():
@@ -24,6 +24,16 @@ def show_all():
     connect.con.close()
 
     return resultado
+
+def showMonedaTo():
+    connect = Connection(f"SELECT moneda_to from registros")
+    resultado = connect.res.fetchall()
+    connect.con.close()
+    lista = []
+    for coin in resultado:
+        lista.append(coin[0])
+    return lista
+
 
 def save(registro):
     connect = Connection(f"INSERT INTO registros (date, time, moneda_from, cantidad_from, moneda_to, cantidad_to, precio_unitario) VALUES(?,?,?,?,?,?,?)", registro)
@@ -66,15 +76,18 @@ def eurosGained():
         resultado = resultado.replace('*', '.')
     return resultado  
 
-def singleCryptoGained():
-    connect = Connection(f"SELECT sum(cantidad_to) FROM Registros WHERE moneda_to = 'BTC'")
+def singleCryptoGained(cripto):
+    connect = Connection(f"SELECT sum(cantidad_to) FROM Registros WHERE moneda_to = {cripto}")
     resultado = connect.res.fetchall()
     connect.con.close()
     if resultado[0][0] == None:
         resultado = 0
+    if cripto == 'EUR':
+        resultado = 'ilimitados'
     else:
         resultado = resultado[0][0]
     return resultado   
+
 
 def eurosGainedRaw():
     connect = Connection(f"SELECT sum(cantidad_to) FROM Registros WHERE moneda_to = 'EUR'")

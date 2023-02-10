@@ -46,7 +46,8 @@ footer {text-align: center;}
 }
 .purple_small {
     color: var(--primary);
-    font-weight:lighter;
+    font-weight:350;
+    
 }
 
 
