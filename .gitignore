@@ -3,5 +3,3 @@
 venv/
 .env
 config.py
-pruebas.py
-registros_vacio.sqlite
