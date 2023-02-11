@@ -18,7 +18,8 @@ def purchase():
         form.moneda_to.default = 'BTC'
         form.process()
         registros = show_all()
-        return render_template("purchase.html", pageTitle = "Transacción", dataForm = form, data=registros)
+        return render_template("purchase.html", pageTitle = "Transacción", 
+                               dataForm = form, data=registros)
     else:
         form = RegistrosForm(data=request.form)
         moneda_from = form.moneda_from.data
@@ -35,6 +36,8 @@ def purchase():
             errores = []
             if moneda_from == moneda_to:
                 errores.append("Escoja monedas diferentes")
+            elif moneda_from != 'BTC' and moneda_to == 'EUR':
+                errores.append(f'No puede cambiar {moneda_from } por Euros. Si la tiene, puede cambiarla por otra criptomoneda')
             elif cantidad > cryptoAvailable and moneda_from != 'EUR':
                 errores.append(f'La cantidad a cambiar de {moneda_from} debe ser menor o igual a sus fondos disponibles')
                 errores.append(f'Actualmente dispone de {formatQuantity(cryptoAvailable)} {moneda_from} en su cartera de criptos')
@@ -42,7 +45,8 @@ def purchase():
         
         error = validateForm(request.form)
         if error:
-            return render_template("purchase.html", pageTitle = "Transacción", dataForm = form, msgError=error)
+            return render_template("purchase.html", pageTitle = "Transacción", 
+                                   dataForm = form, msgError=error)
 
         if form.calcular.data:
                 return render_template("purchase.html",pageTitle = "Cálculo de movimiento", 
@@ -65,7 +69,12 @@ def purchase():
 
 @app.route("/status")
 def status():
-    return render_template("status.html", pageTitle = "Estado", invertido = eurosSpent(), recuperado = eurosGained(), valorCompraRaw = eurosSpentRaw() - eurosGainedRaw(), valorCompra = formatQuantity(eurosSpentRaw() - eurosGainedRaw()), valorActual = formatQuantity(CryptoSum().getRateMyCryptos()), valorActualRaw = CryptoSum().getRateMyCryptos())
+    return render_template("status.html", pageTitle = "Estado", invertido = eurosSpent(), 
+                           recuperado = eurosGained(), 
+                           valorCompraRaw = eurosSpentRaw() - eurosGainedRaw(), 
+                           valorCompra = formatQuantity(eurosSpentRaw() - eurosGainedRaw()), 
+                           valorActual = formatQuantity(CryptoSum().getRateMyCryptos()), 
+                           valorActualRaw = CryptoSum().getRateMyCryptos())
 
 @app.route("/wallet")
 def wallet():

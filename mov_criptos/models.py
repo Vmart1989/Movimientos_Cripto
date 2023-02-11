@@ -3,7 +3,6 @@ from config import *
 from mov_criptos.connection import Connection
 from mov_criptos.forms import *
 
-
 def show_all():
     connect = Connection("SELECT id,date,time,moneda_from,cantidad_from,moneda_to,cantidad_to,precio_unitario from registros order by date DESC, time DESC")
     filas = connect.res.fetchall()
@@ -32,7 +31,6 @@ def showMonedaTo():
     for coin in resultado:
         lista.append(coin[0])
     return lista
-
 
 def save(registro):
     connect = Connection(f"INSERT INTO registros (date, time, moneda_from, cantidad_from, moneda_to, cantidad_to, precio_unitario) VALUES(?,?,?,?,?,?,?)", registro)
@@ -75,6 +73,16 @@ def eurosGained():
         resultado = resultado.replace('*', '.')
     return resultado  
 
+def eurosGainedRaw():
+    connect = Connection(f"SELECT sum(cantidad_to) FROM Registros WHERE moneda_to = 'EUR'")
+    resultado = connect.res.fetchall()
+    connect.con.close()
+    if resultado[0][0] == None:
+        resultado = 0
+    else:
+        resultado = resultado[0][0]
+    return resultado
+
 def CryptosTo(cripto):
     connect = Connection(f"SELECT sum(cantidad_to) FROM Registros WHERE moneda_to = '{cripto}'")
     resultado = connect.res.fetchall()
@@ -95,41 +103,6 @@ def CryptosFrom(cripto):
         resultado = resultado[0][0]
     return resultado
 
-
-def eurosGainedRaw():
-    connect = Connection(f"SELECT sum(cantidad_to) FROM Registros WHERE moneda_to = 'EUR'")
-    resultado = connect.res.fetchall()
-    connect.con.close()
-    if resultado[0][0] == None:
-        resultado = 0
-    else:
-        resultado = resultado[0][0]
-    return resultado
-
-def formatQuantity(quantity):
-    if quantity >=1:
-        resultado = f'{quantity:,.2f}'
-        resultado = resultado.replace(',', '*')
-        resultado = resultado.replace('.', ',')
-        resultado = resultado.replace('*', '.')
-    elif quantity == 0:
-        resultado = 0
-    elif quantity < 0:
-        resultado = f'{quantity:,.2f}'
-        resultado = resultado.replace(',', '*')
-        resultado = resultado.replace('.', ',')
-        resultado = resultado.replace('*', '.')
-    else:
-        resultado = f'{quantity:,.6f}'
-        resultado = resultado.replace(',', '*')
-        resultado = resultado.replace('.', ',')
-        resultado = resultado.replace('*', '.')
-
-    return resultado
-
-class ModelError(Exception):
-    pass
-
 class CryptoExchange:
     def __init__(self, moneda_from, moneda_to):
         self.moneda_from = moneda_from
@@ -143,7 +116,6 @@ class CryptoExchange:
             self.rate = resultado['rate']
             
             return self.rate
-
         else:
             raise ModelError(f"status: {self.r.status_code} error: {self.resultado['error']}")
 
@@ -213,7 +185,29 @@ class CryptoSum:
         else:
             return 0
         
+def formatQuantity(quantity):
+    if quantity >=1:
+        resultado = f'{quantity:,.2f}'
+        resultado = resultado.replace(',', '*')
+        resultado = resultado.replace('.', ',')
+        resultado = resultado.replace('*', '.')
+    elif quantity == 0:
+        resultado = 0
+    elif quantity < 0:
+        resultado = f'{quantity:,.2f}'
+        resultado = resultado.replace(',', '*')
+        resultado = resultado.replace('.', ',')
+        resultado = resultado.replace('*', '.')
+    else:
+        resultado = f'{quantity:,.6f}'
+        resultado = resultado.replace(',', '*')
+        resultado = resultado.replace('.', ',')
+        resultado = resultado.replace('*', '.')
 
+    return resultado
+
+class ModelError(Exception):
+    pass
 
     
 
