@@ -78,6 +78,6 @@ def wallet():
                            matic = formatQuantity(CryptosTo('MATIC') - CryptosFrom(cripto='MATIC')),
                            sol = formatQuantity(CryptosTo('SOL') - CryptosFrom(cripto='SOL')),
                            usdt = formatQuantity(CryptosTo('USDT') - CryptosFrom(cripto='USDT')),
-                           xrp = formatQuantity(CryptosTo('XRP') - CryptosFrom(cripto='XRP'))
+                           xrp = formatQuantity(CryptosTo('XRP') - CryptosFrom(cripto='XRP')),
                            )
                         

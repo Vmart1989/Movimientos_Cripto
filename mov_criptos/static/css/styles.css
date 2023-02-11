@@ -22,10 +22,6 @@ header{
     width: 49%;
 }
 
-.calculadora {
-    display: inline-block;
-}
-
 nav {
     margin-top: -2em;
     float: right;
@@ -71,7 +67,13 @@ footer {text-align: center;}
 }
 
 .criptologo {
-    width: 2em;
+    width: 4em;
+    margin: auto;
+}
+
+.wallet_box {
+    word-wrap: normal;
+    text-align: center;
 }
 
 
