@@ -8,7 +8,7 @@ Se trata de una aplicación para el registro de movimientos de criptomonedas. La
 
 La página 'Inicio' muestra todos los movimientos realizados: Compra, venta o intercambio; registrados en una base de datos SQLite.
 
-La página 'Compra' permite realizar una transacción. Iniciando con Euros, se puede invertir en criptomonedas. Una vez se dispone de criptos en cartera, se podrá utilizarlas como moneda de cambio. El sistema consultará con coinAPI.io para obtener el valor de cambio.
+La página 'Compra' permite realizar una transacción. Iniciando con Euros, se puede invertir en criptomonedas. Una vez se dispone de criptos en cartera, se podrán utilizar como moneda de cambio. El sistema consultará con coinAPI.io para obtener el valor de cambio.
 
 La página 'Estado' muestra la situación de la inversión, los euros gastados en
 comprar Bitcoin y el valor actual del total de criptomonedas que existan en la cartera del
