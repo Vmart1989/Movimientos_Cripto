@@ -39,3 +39,12 @@ La ApiKey se obtiene en [www.coinapi.io](https://www.coinapi.io)
 ```
 flask run
 ```
+
+***
+## Capturas:
+![127 0 0 1_5000_(1366x768)](https://github.com/Vmart1989/movimientos_cripto/assets/87582590/00f8b531-b525-4230-a260-93dff0feef63)
+![127 0 0 1_5000_purchase(1366x768)](https://github.com/Vmart1989/movimientos_cripto/assets/87582590/efff8483-96d3-490a-8a69-ef9f706688ed)
+![127 0 0 1_5000_status(1366x768)](https://github.com/Vmart1989/movimientos_cripto/assets/87582590/c35f1b49-9f3a-410f-8990-b81cb9d45b95)
+![127 0 0 1_5000_wallet(1366x768)](https://github.com/Vmart1989/movimientos_cripto/assets/87582590/8fb64c72-672c-416e-b940-bd11ede74a0f)
+
+
